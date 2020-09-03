@@ -3616,7 +3616,7 @@ ok
       print('flip')
       self.dylink_test(side, main, expected, header, main_emcc_args + ['--no-entry'], force_c, need_reverse=False, **kwargs)
 
-  def do_basic_dylink_test(self, need_reverse=True):
+  def do_basic_dylink_test(self, **kwargs):
     self.dylink_test(r'''
       #include <stdio.h>
       #include "header.h"
@@ -3631,11 +3631,16 @@ ok
       int sidey() {
         return 11;
       }
-    ''', 'other says 11.', 'int sidey();', force_c=True, need_reverse=need_reverse)
+    ''', 'other says 11.', 'int sidey();', force_c=True, **kwargs)
 
   @needs_dlfcn
   def test_dylink_basics(self):
     self.do_basic_dylink_test()
+
+  @needs_dlfcn
+  def test_dylink_basics_no_modify(self):
+    self.set_setting('WASM_BIGINT')
+    self.do_basic_dylink_test(main_emcc_args=['-sERROR_ON_WASM_CHANGES_AFTER_LINK'])
 
   @needs_dlfcn
   def test_dylink_no_export(self):
