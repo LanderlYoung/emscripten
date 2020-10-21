@@ -90,6 +90,7 @@ var LibraryManager = {
       // library_strings.js, to avoid unconditionally bringing in extra code to the build.
       libraries.push('library_strings.js');
     } else {
+      libraries.push('library_strings.js');
       libraries.push('library_browser.js');
     }
 
@@ -428,9 +429,12 @@ function exportRuntime() {
       'stackRestore',
       'stackAlloc',
       'AsciiToString',
+      'UTF8ToStringNBytes',
       'stringToAscii',
       'UTF16ToString',
+      'UTF16ToStringNBytes',
       'stringToUTF16',
+      'UTF32ToStringNBytes',
       'lengthBytesUTF16',
       'UTF32ToString',
       'stringToUTF32',

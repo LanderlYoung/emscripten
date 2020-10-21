@@ -5040,9 +5040,10 @@ main( int argv, char ** argc ) {
 
   def test_utf32(self):
     if self.get_setting('MINIMAL_RUNTIME'):
-      self.set_setting('DEFAULT_LIBRARY_FUNCS_TO_INCLUDE', ['$UTF32ToString', '$stringToUTF32', '$lengthBytesUTF32'])
+      self.set_setting('DEFAULT_LIBRARY_FUNCS_TO_INCLUDE', ['$UTF32ToString', '$UTF32ToStringNBytes', '$stringToUTF32', '$lengthBytesUTF32'])
+
     else:
-      self.set_setting('EXTRA_EXPORTED_RUNTIME_METHODS', ['UTF32ToString', 'stringToUTF32', 'lengthBytesUTF32'])
+      self.set_setting('EXTRA_EXPORTED_RUNTIME_METHODS', ['UTF32ToString', 'UTF32ToStringNBytes', 'stringToUTF32', 'lengthBytesUTF32'])
     self.do_runf(path_from_root('tests', 'utf32.cpp'), 'OK.')
     self.do_runf(path_from_root('tests', 'utf32.cpp'), 'OK.', args=['-fshort-wchar'])
 
@@ -5051,7 +5052,7 @@ main( int argv, char ** argc ) {
       self.set_setting('DEFAULT_LIBRARY_FUNCS_TO_INCLUDE', ['$AsciiToString', '$stringToAscii', '$writeAsciiToMemory'])
     else:
       self.set_setting('EXTRA_EXPORTED_RUNTIME_METHODS',
-                       ['UTF8ToString', 'stringToUTF8', 'AsciiToString', 'stringToAscii'])
+                       ['UTF8ToString', 'UTF8ToStringNBytes', 'stringToUTF8', 'AsciiToString', 'stringToAscii'])
     self.do_runf(path_from_root('tests', 'utf8.cpp'), 'OK.')
 
   @also_with_wasm_bigint
