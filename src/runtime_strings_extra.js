@@ -77,7 +77,7 @@ function UTF16ToString(ptr, maxBytesToRead) {
 #endif // TEXTDECODER
 }
 
-function UTF16ToStringWithLength(ptr, lengthInBytes) {
+function UTF16ToStringNBytes(ptr, lengthInBytes) {
 #if ASSERTIONS
   assert(ptr % 2 == 0, 'Pointer passed to UTF16ToString must be aligned to two bytes!');
   assert(lengthInBytes % 2 == 0, 'Length passed to UTF16ToString must be a even number!');
@@ -176,7 +176,7 @@ function UTF32ToString(ptr, maxBytesToRead) {
   return str;
 }
 
-function UTF32ToStringWithLength(ptr, lengthInBytes) {
+function UTF32ToStringNBytes(ptr, lengthInBytes) {
 #if ASSERTIONS
   assert(ptr % 4 == 0, 'Pointer passed to UTF32ToString must be aligned to four bytes!');
   assert(lengthInBytes % 4 == 0, 'Length passed to UTF32ToString must be multiple of 4!');

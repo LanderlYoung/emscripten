@@ -124,7 +124,7 @@ function UTF8ToString(ptr, maxBytesToRead) {
  * @param {number=} lengthInBytes
  * @return {string}
  */
-function UTF8ArrayToStringWithLength(heap, idx, lengthInBytes) {
+function UTF8ArrayToStringNBytes(heap, idx, lengthInBytes) {
 #if CAN_ADDRESS_2GB
   idx >>>= 0;
 #endif
@@ -178,13 +178,13 @@ function UTF8ArrayToStringWithLength(heap, idx, lengthInBytes) {
 // Given a pointer 'ptr' to a UTF8-encoded string in the emscripten HEAP, returns a
 // copy of that string as a Javascript String object.
 // lengthInBytes:  specifies the number of bytes to read. The string at [ptr, ptr + lengthInBytes)
-//                 will be decoded using utf8 encoding, and any \0 in between will be decoded as-it.
+//                 will be decoded using utf8 encoding, and any \0 in between will be decoded as-is.
 /**
  * @param {number} ptr
  * @param {number=} lengthInBytes
  * @return {string}
  */
-function UTF8ToStringWithLength(ptr, lengthInBytes) {
+function UTF8ToStringNBytes(ptr, lengthInBytes) {
 #if CAN_ADDRESS_2GB
   ptr >>>= 0;
 #endif
@@ -193,7 +193,7 @@ function UTF8ToStringWithLength(ptr, lengthInBytes) {
   var end = ptr + lengthInBytes;
   return UTF8Decoder.decode(HEAPU8.subarray(ptr, end));
 #else
-  return ptr ? UTF8ArrayToStringWithLength(HEAPU8, ptr, lengthInBytes) : '';
+  return ptr ? UTF8ArrayToStringNBytes(HEAPU8, ptr, lengthInBytes) : '';
 #endif
 }
 

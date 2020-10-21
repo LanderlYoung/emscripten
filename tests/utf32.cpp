@@ -56,12 +56,12 @@ int main() {
       wstr.c_str(), memory, 6 * sizeof(utf32));
     assert(memory[5] == 0);
 
-    // UTF32ToStringWithLength without null-terminate
+    // UTF32ToStringNBytes without null-terminate
     size_t dashIndex = wstr.find(L'-');
     std::wstring_view subString = std::wstring_view(wstr).substr(0, dashIndex + 1);
     int outLength = EM_ASM_INT(
       {
-        var str = UTF32ToStringWithLength($0, $1);
+        var str = UTF32ToStringNBytes($0, $1);
         out(str);
         var expectedBytesWritten = $1;
         var numBytesWritten = stringToUTF32(str, $2, $3);
@@ -75,12 +75,12 @@ int main() {
       (wstr.length() + 1) * sizeof(utf32));
     assert(outLength == subString.length() * sizeof(utf32));
 
-    // UTF32ToStringWithLength without '\0' inside
+    // UTF32ToStringNBytes without '\0' inside
     std::wstring wstr2 = wstr;
     wstr2[dashIndex] = L'\0';
     int outLength2 = EM_ASM_INT(
       {
-        var str = UTF32ToStringWithLength($0, $1);
+        var str = UTF32ToStringNBytes($0, $1);
         out(str);
         var expectedBytesWritten = $1;
         var numBytesWritten = stringToUTF32(str, $2, $3);
@@ -127,12 +127,12 @@ int main() {
       wstr.c_str(), memory, 6 * sizeof(utf16));
     assert(memory[5] == 0);
 
-    // UTF16ToStringWithLength without null-terminate
+    // UTF16ToStringNBytes without null-terminate
     size_t dashIndex = wstr.find(L'-');
     std::wstring_view subString = std::wstring_view(wstr).substr(0, dashIndex + 1);
     int outLength = EM_ASM_INT(
       {
-        var str = UTF16ToStringWithLength($0, $1);
+        var str = UTF16ToStringNBytes($0, $1);
         out(str);
         var expectedBytesWritten = $1;
         var numBytesWritten = stringToUTF16(str, $2, $3);
@@ -146,12 +146,12 @@ int main() {
       (wstr.length() + 1) * sizeof(utf16));
     assert(outLength == subString.length() * sizeof(utf16));
 
-    // UTF16ToStringWithLength without '\0' inside
+    // UTF16ToStringNBytes without '\0' inside
     std::wstring wstr2 = wstr;
     wstr2[dashIndex] = L'\0';
     int outLength2 = EM_ASM_INT(
       {
-        var str = UTF16ToStringWithLength($0, $1);
+        var str = UTF16ToStringNBytes($0, $1);
         out(str);
         var expectedBytesWritten = $1;
         var numBytesWritten = stringToUTF16(str, $2, $3);
